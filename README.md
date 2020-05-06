@@ -9,3 +9,12 @@ mamiaom here,I like Node.js and Coffeescript (that's what I'm made of),mamiaomia
 5.23联调完成；
 6.1测试服务器上线，用户测试。
 http://hiui.gts.huawei.com/uid/uid#/
+3、设置npm代理：
+
+1） npm config rm proxy
+2） npm config rm http-proxy
+3） npm config rm https-proxy
+4） npm config set no-proxy.huawei.com
+5） npm config set registry http://w3cloudnkg-sit1.huawei.com/ccloud/nexus/content/repositories/npm-all/
+
+4、下载空的vue项目（附件vue.rar）
