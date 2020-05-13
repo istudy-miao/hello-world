@@ -1,3 +1,4 @@
+```
 <template>
   <div>
     <a-card class="card" title="仓库管理" :bordered="false">
@@ -351,3 +352,4 @@ export default {
     }
   }
 </style>
+```
