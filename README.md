@@ -18,6 +18,8 @@ devServer: {
   },
 ```
 src/views/form/advancedForm/AdvancedForm.vue 需要添加import
+根据需要更改  src/api/manage.js 文件 目前 写的是请求getUserList, 根据实际情况重新命名
+
 ```
 import { getUserList } from '@/api/manage'
 ```
