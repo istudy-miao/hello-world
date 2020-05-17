@@ -17,6 +17,31 @@ devServer: {
     }
   },
 ```
+
+在项目目录下新建serverapi.js, 内容
+
+```
+var http = require('http');
+
+http.createServer(function (request, response) {
+
+  // 发送 HTTP 头部
+  // HTTP 状态值: 200 : OK
+  // 内容类型: text/plain
+  response.writeHead(200, {'Content-Type': 'text/plain'});
+
+  // 发送响应数据 "Hello World"
+
+  response.end("[820,932,901,934,1290,1330,1320]");
+}).listen(8888);
+
+
+```
+
+上面的serverapi.js是用node做后端的api,执行 node serverapi.js 就浏览器在127.0.0.1:8888 看到接口的返回值,
+注意真实的api 还需后端提供,此文件只是为了自己测试用
+
+
 src/views/form/advancedForm/AdvancedForm.vue 需要添加import
 根据需要更改  src/api/manage.js 文件 目前 写的是请求getUserList, 根据实际情况重新命名
 
