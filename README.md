@@ -1,6 +1,3 @@
-还没好吗
-
-
 
 # 接口设置
 由于线下dev请求存在跨域情况,所以需要配置proxy
@@ -56,11 +53,8 @@ drawline方法需要替换为
 
 ```
 import { getUserList } from '@/api/manage'
-```
 
-
-```
-drawLine () {
+ drawLine () {
       const chartLine = echarts.init(document.getElementById('myChart'))
       const parameter = {}
       getUserList(parameter).then(res => {
@@ -72,18 +66,9 @@ drawLine () {
             trigger: 'axis'
           },
           legend: {
-            data: ['整机', 'SOC+DDR', 'CPU_L', 'CPU+BM', 'GPU', 'CPU_MEM', '其他指标'],
-            selected: {
-              '整机': true,
-              'SOC+DDR': false,
-              'CPU_L': false,
-              'CPU+BM': false,
-              'GPU': false,
-              'CPU_MEM': false,
-              '其他指标': false
-            }
+            data: res.legendData,
+            selected: res.legendSelected
           },
-
           grid: {
             left: '3%',
             right: '4%',
@@ -93,204 +78,130 @@ drawLine () {
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['版本1', '版本2', '版本3', '版本4', '版本4.0', '版本5', '版本5.0']
+            data: res.xAxisData
           },
           yAxis: {
             type: 'value'
           },
-          series: [
-            {
-              name: '整机',
-              type: 'line',
-              stack: '总量',
-              data: [4.9, 5.3, 4.7, 8.4, 5.56, 9.89, 2.32],
-              smooth: true,
-              itemStyle: {
-                normal: {
-                  color: '#0F0'
-                }
-              },
-              lineStyle: {
-                normal: {
-                  width: 10,
-                  color: '#0F0'
-                }
-              }
-            },
-            {
-              name: 'SOC+DDR',
-              type: 'line',
-              stack: '总量',
-              data: [220, 182, 191, 234, 290, 330, 310],
-              smooth: true
-            },
-            {
-              name: 'CPU_L',
-              type: 'line',
-              stack: '总量',
-              data: [82, 93, 90, 93, 12, 13, 13],
-              smooth: true
-            },
-            {
-              name: 'CPU+BM',
-              type: 'line',
-              stack: '总量',
-              data: [120, 132, 101, 134, 90, 230, 210],
-              smooth: true
-            },
-            {
-              name: 'GPU',
-              type: 'line',
-              stack: '总量',
-              data: [220, 182, 191, 234, 290, 330, 310],
-              smooth: true
-            },
-            {
-              name: 'CPU_MEM',
-              type: 'line',
-              stack: '总量',
-              data: res,
-              smooth: true
-            },
-            {
-              name: '其他指标',
-              type: 'line',
-              stack: '总量',
-              data: [220, 182, 191, 234, 290, 330, 310],
-              smooth: true
-            }
-          ]
+          series: []
         }
+
+        const seriesData = []
+        for (var key in res.seriesData) {
+          const itemSData = { name: '', type: 'line', stack: '总量', data: [], smooth: true }
+          itemSData.name = key
+          itemSData.data = res.seriesData[key]
+          seriesData.push(itemSData)
+        }
+        optionData.series = seriesData
+        console.log(optionData)
         chartLine.setOption(optionData)
-        console.log('getUserList', res)
       })
-
-        // this.memberLoading = true
-        // 基于准备好的dom，初始化echarts实例
-        // const myChart = echarts.init(document.getElementById('myChart'))
-        // // 绘制图表
-        // myChart.setOption({
-        //     title: { text: '在Vue中使用echarts' },
-        //     tooltip: {},
-        //     xAxis: {
-        //         data: ['衬衫', '羊毛衫', '雪纺衫", "裤子', '高跟鞋', '袜子']
-        //     },
-        //     yAxis: {},
-        //     series: [{
-        //         name: '销量',
-        //         type: 'bar',
-        //         data: [5, 20, 36, 10, 10, 20]
-        //     }]
-        // })
-    },
 ```
 
-# 需要后端接口格式
-需要后端接口数据格式为
+# 更改src/mock/services/user.js 后端数据格式如下
 
 ```
-{
-    "legendData":[
-        "整机",
-        "SOC+DDR",
-        "CPU_L",
-        "CPU+BM",
-        "GPU",
-        "CPU_MEM",
-        "其他指标"
+const apiChartData = {
+  'legendData': [
+    '整机',
+    'SOC+DDR',
+    'CPU_L',
+    'CPU+BM',
+    'GPU',
+    'CPU_MEM',
+    '其他指标'
+  ],
+  'seriesData': {
+    '整机': [
+      4.9,
+      5.3,
+      4.7,
+      8.4,
+      5.56,
+      9.89,
+      2.32
     ],
-    "seriesData":{
-        "整机":[
-            4.9,
-            5.3,
-            4.7,
-            8.4,
-            5.56,
-            9.89,
-            2.32
-        ],
-        "SOC+DDR":[
-            82,
-            93,
-            90,
-            93,
-            12,
-            13,
-            13
-        ],
-        "CPU_L":[
-            82,
-            93,
-            90,
-            93,
-            12,
-            13,
-            13
-        ],
-        "CPU+BM":[
-            82,
-            93,
-            90,
-            93,
-            12,
-            13,
-            13
-        ],
-        "GPU":[
-            82,
-            93,
-            90,
-            93,
-            12,
-            13,
-            13
-        ],
-        "CPU_MEM":[
-            82,
-            93,
-            90,
-            93,
-            12,
-            13,
-            13
-        ],
-        "其他指标":[
-            82,
-            93,
-            90,
-            93,
-            12,
-            13,
-            13
-        ]
-    }
+    'SOC+DDR': [
+      82,
+      93,
+      90,
+      93,
+      12,
+      13,
+      13
+    ],
+    'CPU_L': [
+      82,
+      93,
+      90,
+      93,
+      12,
+      13,
+      13
+    ],
+    'CPU+BM': [
+      82,
+      93,
+      90,
+      93,
+      12,
+      13,
+      13
+    ],
+    'GPU': [
+      82,
+      93,
+      90,
+      93,
+      12,
+      13,
+      13
+    ],
+    'CPU_MEM': [
+      82,
+      93,
+      90,
+      93,
+      12,
+      13,
+      13
+    ],
+    '其他指标': [
+      82,
+      93,
+      90,
+      93,
+      12,
+      13,
+      13
+    ]
+  },
+  'legendSelected': {
+    '整机': true,
+    'SOC+DDR': false,
+    'CPU_L': false,
+    'CPU+BM': false,
+    'GPU': false,
+    'CPU_MEM': false,
+    '其他指标': false
+  },
+  'xAxisData': [
+    '版本1',
+    '版本2',
+    '版本3',
+    '版本4',
+    '版本4.0',
+    '版本5',
+    '版本5.0'
+  ]
 }
+Mock.mock(/\/api\/user/, 'get', apiChartData)
 
 ```
 
 
-key为数据项,value为各版本的数据值.
 
-前端需要替换
-optionData.legend.data 替换为 res.legendData
-
-然后遍历 res.seriesData 
-
-itemSData= {
-              name: '',
-              type: 'line',
-              stack: '总量',
-              data: [],
-              smooth: true
-            };
-          
-series = []            
-
-for(var key in res.seriesData){
-    itemSData.name = key   
-     itemSData.data = res.seriesData[key] 
-     series.push(itemSData)
-}
 
 
 
