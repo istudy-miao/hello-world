@@ -1,4 +1,4 @@
-notice:
+# notice:
 有问题吗 ,数据请求能出来不????
 
 # 接口设置
@@ -20,7 +20,7 @@ devServer: {
     }
   },
 ```
-
+# 后端接口
 在项目目录下新建serverapi.js, 内容
 
 ```
@@ -44,6 +44,8 @@ http.createServer(function (request, response) {
 上面的serverapi.js是用node做后端的api,执行 node serverapi.js 就浏览器在127.0.0.1:8888 看到接口的返回值,
 注意真实的api 还需后端提供,此文件只是为了自己测试用
 
+
+# 表单代码更改
 
 src/views/form/advancedForm/AdvancedForm.vue 需要添加import
 根据需要更改  src/api/manage.js 文件 目前 写的是请求getUserList, 根据实际情况重新命名
