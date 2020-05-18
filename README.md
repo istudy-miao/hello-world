@@ -186,18 +186,3 @@ drawLine () {
     },
 ```
 
-报错：进入目录下执行node serverapi.js
-D:\mamiaomiao\ant-design-vue-pro-master\src\api>node serverapi.js
-_http_server.js:248
-    throw new ERR_HTTP_INVALID_STATUS_CODE(originalStatusCode);
-    ^
-
-RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: { 'Content-Type': 'text/plain' }
-[90m    at ServerResponse.writeHead (_http_server.js:248:11)[39m
-    at Server.<anonymous> (D:\mamiaomiao\ant-design-vue-pro-master\src\api\serverapi.js:3:11)
-[90m    at Server.emit (events.js:310:20)[39m
-[90m    at parserOnIncoming (_http_server.js:786:12)[39m
-[90m    at HTTPParser.parserOnHeadersComplete (_http_common.js:119:17)[39m {
-  code: [32m'ERR_HTTP_INVALID_STATUS_CODE'[39m
-}
-    前端页面network中报Cannot GET /api/user
