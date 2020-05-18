@@ -1,6 +1,3 @@
-# notice:
-有问题吗 ,数据请求能出来不????
-
 # 接口设置
 由于线下dev请求存在跨域情况,所以需要配置proxy
 vue.config.js 87行
@@ -20,7 +17,7 @@ devServer: {
     }
   },
 ```
-# 后端接口
+
 在项目目录下新建serverapi.js, 内容
 
 ```
@@ -44,8 +41,6 @@ http.createServer(function (request, response) {
 上面的serverapi.js是用node做后端的api,执行 node serverapi.js 就浏览器在127.0.0.1:8888 看到接口的返回值,
 注意真实的api 还需后端提供,此文件只是为了自己测试用
 
-
-# 表单代码更改
 
 src/views/form/advancedForm/AdvancedForm.vue 需要添加import
 根据需要更改  src/api/manage.js 文件 目前 写的是请求getUserList, 根据实际情况重新命名
@@ -190,3 +185,19 @@ drawLine () {
         // })
     },
 ```
+
+报错：进入目录下执行node serverapi.js
+D:\mamiaomiao\ant-design-vue-pro-master\src\api>node serverapi.js
+_http_server.js:248
+    throw new ERR_HTTP_INVALID_STATUS_CODE(originalStatusCode);
+    ^
+
+RangeError [ERR_HTTP_INVALID_STATUS_CODE]: Invalid status code: { 'Content-Type': 'text/plain' }
+[90m    at ServerResponse.writeHead (_http_server.js:248:11)[39m
+    at Server.<anonymous> (D:\mamiaomiao\ant-design-vue-pro-master\src\api\serverapi.js:3:11)
+[90m    at Server.emit (events.js:310:20)[39m
+[90m    at parserOnIncoming (_http_server.js:786:12)[39m
+[90m    at HTTPParser.parserOnHeadersComplete (_http_common.js:119:17)[39m {
+  code: [32m'ERR_HTTP_INVALID_STATUS_CODE'[39m
+}
+    前端页面network中报Cannot GET /api/user
