@@ -1,3 +1,7 @@
+还没好吗
+
+
+
 # 接口设置
 由于线下dev请求存在跨域情况,所以需要配置proxy
 vue.config.js 87行
@@ -17,7 +21,7 @@ devServer: {
     }
   },
 ```
-
+# 后端接口
 在项目目录下新建serverapi.js, 内容
 
 ```
@@ -41,13 +45,10 @@ http.createServer(function (request, response) {
 上面的serverapi.js是用node做后端的api,执行 node serverapi.js 就浏览器在127.0.0.1:8888 看到接口的返回值,
 注意真实的api 还需后端提供,此文件只是为了自己测试用
 
-
+# 更改表单代码
 src/views/form/advancedForm/AdvancedForm.vue 需要添加import
 根据需要更改  src/api/manage.js 文件 目前 写的是请求getUserList, 根据实际情况重新命名
 
-```
-import { getUserList } from '@/api/manage'
-```
 
 drawline方法需要替换为
 期望后端接口数据格式为
@@ -59,6 +60,12 @@ drawline方法需要替换为
 key替换为代表对应含义英文,值为echarts需要的data
 
 这样代码拿到返回值替换optionData里面的data即可
+
+
+```
+import { getUserList } from '@/api/manage'
+```
+
 
 ```
 drawLine () {
