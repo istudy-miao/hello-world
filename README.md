@@ -51,15 +51,7 @@ src/views/form/advancedForm/AdvancedForm.vue 需要添加import
 
 
 drawline方法需要替换为
-期望后端接口数据格式为
-{
-  "整机": [4.9, 5.3, 4.7, 8.4, 5.56, 9.89, 2.32],
-  "CPU_l":[82, 93, 90, 93, 12, 13, 13]"
-}
 
-key替换为代表对应含义英文,值为echarts需要的data
-
-这样代码拿到返回值替换optionData里面的data即可
 
 
 ```
@@ -192,4 +184,115 @@ drawLine () {
         // })
     },
 ```
+
+# 需要后端接口格式
+需要后端接口数据格式为
+
+```
+{
+    "legendData":[
+        "整机",
+        "SOC+DDR",
+        "CPU_L",
+        "CPU+BM",
+        "GPU",
+        "CPU_MEM",
+        "其他指标"
+    ],
+    "seriesData":{
+        "整机":[
+            4.9,
+            5.3,
+            4.7,
+            8.4,
+            5.56,
+            9.89,
+            2.32
+        ],
+        "SOC+DDR":[
+            82,
+            93,
+            90,
+            93,
+            12,
+            13,
+            13
+        ],
+        "CPU_L":[
+            82,
+            93,
+            90,
+            93,
+            12,
+            13,
+            13
+        ],
+        "CPU+BM":[
+            82,
+            93,
+            90,
+            93,
+            12,
+            13,
+            13
+        ],
+        "GPU":[
+            82,
+            93,
+            90,
+            93,
+            12,
+            13,
+            13
+        ],
+        "CPU_MEM":[
+            82,
+            93,
+            90,
+            93,
+            12,
+            13,
+            13
+        ],
+        "其他指标":[
+            82,
+            93,
+            90,
+            93,
+            12,
+            13,
+            13
+        ]
+    }
+}
+
+```
+
+
+key为数据项,value为各版本的数据值.
+
+前端需要替换
+optionData.legend.data 替换为 res.legendData
+
+然后遍历 res.seriesData 
+
+itemSData= {
+              name: '',
+              type: 'line',
+              stack: '总量',
+              data: [],
+              smooth: true
+            };
+          
+series = []            
+
+for(var key in res.seriesData){
+    itemSData.name = key   
+     itemSData.data = res.seriesData[key] 
+     series.push(itemSData)
+}
+
+
+
+
 
