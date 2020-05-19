@@ -1,10 +1,9 @@
 
-mock可以用吗
+
 
 # 接口设置
 由于线下dev请求存在跨域情况,所以需要配置proxy
 vue.config.js 87行
-含义 127.0.0.1:8000/api/user 当前请求 会转发到 后端 http://127.0.0.1:8888/ (更换后端的接口地址 ip 端口 url 全路径)
 
 ```
 devServer: {
@@ -12,14 +11,25 @@ devServer: {
     port: 8000,
     // If you want to turn on the proxy, please remove the mockjs /src/main.jsL11
     proxy: {
-      '/api/user': {
+      '/api': {
         target: 'http://127.0.0.1:8888/',
         ws: false,
-        changeOrigin: true
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
       }
     }
   },
 ```
+src/api/manage.js 更改第四行 api.user的常量 替换为后端的 api路由地址   例如 /data/asdf/asdfasdf
+
+```
+const api = {
+  user: '/data/dfas/asdfsadf', // 换为后端地址
+```
+
+
 # 后端接口
 在项目目录下新建serverapi.js, 内容
 
