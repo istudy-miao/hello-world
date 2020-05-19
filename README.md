@@ -1,4 +1,6 @@
 
+mock可以用吗
+
 # 接口设置
 由于线下dev请求存在跨域情况,所以需要配置proxy
 vue.config.js 87行
@@ -99,7 +101,7 @@ import { getUserList } from '@/api/manage'
       })
 ```
 
-# 更改src/mock/services/user.js 后端数据格式如下
+# 在src/mock/services/user.js 添加mock数据格式如下
 
 ```
 const apiChartData = {
