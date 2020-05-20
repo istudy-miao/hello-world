@@ -1,3 +1,12 @@
+XHR 中的请求是这个：Request URL: http://localhost:8000/dataresourceapp/task_data/test_result_data/
+但是后台给我的地址是这个：http://10.190.200.110:8001/dataresourceapp/task_data/test_result_data/
+我在vue.config.js中这样写的：proxy: {
+      '/api': {
+        target: 'http://10.190.200.110:8001/',
+        ws: false,
+        changeOrigin: true
+      }
+    }
 
 你改动的地方给我贴一下!!!!  你代码确定 没改别的吧   
 你还原到之前的代码 把mock注释看看有没有 api/user的请求
