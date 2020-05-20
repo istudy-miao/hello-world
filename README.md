@@ -1,3 +1,30 @@
+
+
+你proxy少东西了
+```
+ proxy: {
+      '/api': {
+        target: 'http://127.0.0.1:8888/',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    }
+```
+你没加 pathRewrite  这个
+
+src/api/manage.js 更改第四行 api.user的常量 替换为后端的 api路由地址   
+
+```
+const api = {
+  user: 'dataresourceapp/task_data/test_result_data', 
+```
+
+
+
+--------
 不用管了忙自己的吧
 XHR 中的请求是这个：Request URL: http://localhost:8000/dataresourceapp/task_data/test_result_data/
 但是后台给我的地址是这个：http://10.190.200.110:8001/dataresourceapp/task_data/test_result_data/
