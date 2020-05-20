@@ -1,3 +1,16 @@
+***src/api/manage.js
+const api = {
+  user: '/api/dataresourceapp/task_data/test_result_data',
+  role: '/role',
+  service: '/service',
+  permission: '/permission',
+  permissionNoPager: '/permission/no-pager',
+  orgTree: '/org/tree'
+}
+
+
+
+
 好了没
 
 你proxy少东西了  这俩个 按照我的改  出来给我电话可以
