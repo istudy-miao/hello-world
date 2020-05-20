@@ -19,7 +19,7 @@ src/api/manage.js 更改第四行 api.user的常量 替换为后端的 api路由
 
 ```
 const api = {
-  user: 'dataresourceapp/task_data/test_result_data', 
+  user: '/dataresourceapp/task_data/test_result_data', 
 ```
 
 
