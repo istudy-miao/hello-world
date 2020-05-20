@@ -1,5 +1,10 @@
 
-
+Request URL: http://localhost:8000/js/user.js
+Request Method: GET
+Status Code: 200 OK
+Remote Address: 127.0.0.1:8000
+Referrer Policy: no-referrer-when-downgrade
+改过后，刷新浏览器，发现network中依然访问的是上面这个，是不是第一行那个Request URL应该变为他给我的后台地址啊
 
 # 接口设置
 由于线下dev请求存在跨域情况,所以需要配置proxy
