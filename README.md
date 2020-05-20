@@ -1,10 +1,10 @@
 
 
-你proxy少东西了  这俩个 按照我的改
+你proxy少东西了  这俩个 按照我的改  出来给我电话可以
 ```
  proxy: {
       '/api': {
-        target: 'http://127.0.0.1:8888/',
+        target: 'http://10.190.200.110:8001/',
         ws: false,
         changeOrigin: true,
         pathRewrite: {
