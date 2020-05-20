@@ -6,6 +6,7 @@
 
 network 选择那个 XHR   你是不是看的all  看错了 这个明显不是请求后端的api
 
+是不是请求了 但是后端数据格式不符合  你console.log 后端接口数据  看看console
 ---------
 
 
