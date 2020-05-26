@@ -1,11 +1,18 @@
 router.config.js
+
+```
 {
             path: '/form/advanced-form',
             name: 'AdvanceForm',
             component: () => import('@/views/form/advancedForm/AdvancedForm'),
             meta: { title: '汇总数据', keepAlive: true, permission: [ 'form' ] }
  }
+ ```
+ 
 Workplace.vue
+
+
+```
 clickfun (e) {
       // 获取当点元素的文本值
       const Txt = e.currentTarget.parentElement.innerText
@@ -20,7 +27,11 @@ clickfun (e) {
         }
       })
     },
+```
+
 AdvancedForm.vue
+
+```
 created () {
     this.getParams()
   },
@@ -36,12 +47,18 @@ created () {
     watch: {
     '$route': 'getParams'
   }
-你知道怎么把台的值传递给后台呀？有这么个方法：
+  
+//你知道怎么把台的值传递给后台呀？有这么个方法：
  getParams () {
       var routerParams = this.$route.params.id
       this.description = routerParams
       // alert(routerParams)
-      return getParams().then(res => {
+      const parameter = {
+         "version":routerParams,
+         "platform":"sdf"
+      }
+      //TODO  getParams 增加参数parameter 里面的值需要后端接口入参定义
+      return getParams(parameter).then(res => {
         console.log(res)
       })
     }
@@ -51,9 +68,13 @@ created () {
   return axios({
     url: config.PYTHON_ADDR + '/dataresourceapp/task_data/get_product_board/',
     method: 'POST',
-    headers: config.HEADERS
+    headers: config.HEADERS,
+    params: parameter
+    //TODO  params 入参传给后端
   })
 }
+
+```
     res是后台给返回来的值，我需要把前端的这个routerParams传递给后端，不知道往哪里写
     
 我的电话能转接到你那不？中行打电话问是不是绿码，我接不到电话，能不能你那接到，给我github上说声，我下去看。
