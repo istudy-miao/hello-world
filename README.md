@@ -1,3 +1,41 @@
+router.config.js
+{
+            path: '/form/advanced-form',
+            name: 'AdvanceForm',
+            component: () => import('@/views/form/advancedForm/AdvancedForm'),
+            meta: { title: '汇总数据', keepAlive: true, permission: [ 'form' ] }
+ }
+Workplace.vue
+clickfun (e) {
+      // 获取当点元素的文本值
+      const Txt = e.currentTarget.parentElement.innerText
+      // console.log(Txt)
+      // const index = e.currentTarget.parentElement
+      // console.log(this.$refs.refname[index].innerText)
+      this.$router.push({
+        path: '/form/advanced-form',
+        name: 'AdvanceForm',
+        params: {
+          id: Txt
+        }
+      })
+    },
+AdvancedForm.vue
+created () {
+    this.getParams()
+  },
+ methods中：
+ getParams () {
+      var routerParams = this.$route.params.id
+      this.description = routerParams
+      // alert(routerParams)
+      return getParams().then(res => {
+        console.log(res)
+      })
+    },
+    watch: {
+    '$route': 'getParams'
+  }
 你知道怎么把台的值传递给后台呀？有这么个方法：
  getParams () {
       var routerParams = this.$route.params.id
@@ -7,6 +45,15 @@
         console.log(res)
       })
     }
+    import { getUser, getParams } from '@/api/manage'
+   api/manage.js
+   export function getParams (parameter) {
+  return axios({
+    url: config.PYTHON_ADDR + '/dataresourceapp/task_data/get_product_board/',
+    method: 'POST',
+    headers: config.HEADERS
+  })
+}
     res是后台给返回来的值，我需要把前端的这个routerParams传递给后端，不知道往哪里写
     
 我的电话能转接到你那不？中行打电话问是不是绿码，我接不到电话，能不能你那接到，给我github上说声，我下去看。
