@@ -1,8 +1,6 @@
-```
 <template>
   <div>
     <a-card class="card" title="筛选条件" :bordered="false">
-      // <repository-form ref="repository" :showSubmit="false" />
       <a-select
         mode="radio"
         style="width: 20%;margin-right: 4px"
@@ -17,7 +15,7 @@
       </a-select>
       <a-select
         mode="radio"
-        style="width: 25%;margin-right: 4px"
+        style="width: 20%;margin-right: 4px"
         @change="changeGetParams"
         placeholder="请选择版子"
       >
@@ -26,7 +24,7 @@
       </a-select>
       <a-select
         mode="radio"
-        style="width: 25%;margin-right: 4px"
+        style="width: 20%;margin-right: 4px"
         @change="setTestcase"
         placeholder="测试用例"
       >"
@@ -34,15 +32,36 @@
       </a-select>
       <a-select
         mode="tags"
-        style="width: 25%"
-        @change="handleChange"
+        style="width: 20%;margin-right: 6px"
+        @change="getVersionM"
         placeholder="请选择版本"
       >
-        <a-select-option value="Baltimore">v1</a-select-option>
-        <a-select-option value="Denver">v2</a-select-option>
+        <a-select-option v-for="u in this.setVersion" :key="u.id" :value="u"> {{ u }} </a-select-option>
       </a-select>
+      <!-- <a-button type="primary" style="margin-top:40px;border-radius:6px;" @click="showModal">详情展示</a-button> -->
+      <a-modal
+        title="数据详情"
+        :visible="visible"
+        @ok="handleOk"
+        :confirmLoading="confirmLoading"
+        @cancel="handleCancel"
+      >
+        <!-- <p>{{ ModalText }}</p> -->
+        <table border="1" width="100%">
+          <tr>
+            <td>11111</td>
+            <td>22222</td>
+            <td>33333</td>
+          </tr>
+          <tr>
+            <td>11111</td>
+            <td>22222</td>
+            <td>33333</td>
+          </tr>
+        </table>
+      </a-modal>
     </a-card>
-    <div id="myChart" :style="{width:'100%',height:'400px'}"></div>
+    <div id="myChart" :style="{width:'100%',height:'1000px'}"></div>
   </div>
 </template>
 
@@ -52,7 +71,7 @@
   import FooterToolBar from '@/components/FooterToolbar'
   import { mixin, mixinDevice } from '@/utils/mixin'
   import echarts from 'echarts'
-  import { getUser, getParams } from '@/api/manage'
+  import { getUser, getParams, getVersion, getTable } from '@/api/manage'
 
   const fieldLabels = {
     name: '仓库名',
@@ -83,38 +102,78 @@
         description: '',
         productType: '',
         boardType: '',
+        testCase: '',
+        versionType: '',
         loading: true,
         memberLoading: true,
         errors: [],
-        getParamsRes: []
+        getParamsRes: [],
+        setVersion: [],
+        ModalText: '内容',
+        visible: false,
+        confirmLoading: false
       }
     },
-    created () {
-      this.changeGetParams()
-    },
+    // created () {
+    //   this.changeGetParams()
+    // },
     mounted: function () {
       this.getUser()
+      this.getVersion()
     },
     methods: {
+      showModal () {
+        this.visible = true
+        console.log(111)
+        const parameter = {
+          // categoryType: this.description,
+          // productType: this.productType,
+          // boardType: this.boardType,
+          // fieldType: 'powerConsumption',
+          // test_case: this.test_case,
+          // version_type: this.version_type
+          0: 1
+        }
+        //  TODO 数据详情匹配
+        return getTable(parameter).then(res => {
+          // this.setVersion = res.type_list
+          console.log(res)
+        })
+      },
+      handleOk (e) {
+        this.ModalText = 'The modal will be closed after two seconds'
+        this.confirmLoading = true
+        setTimeout(() => {
+          this.visible = false
+          this.confirmLoading = false
+        }, 2000)
+      },
+      handleCancel (e) {
+        console.log('Clicked cancel button')
+        this.visible = false
+      },
       setProductType (val) {
         this.productType = val
         console.log(this.productType)
       },
+      // 触发第三个select
       setTestcase (val) {
+         this.testCase = val
         console.log(val)
         const parameter = {
-          categoryType: '功耗',
+          categoryType: this.description,
           productType: this.productType,
           boardType: this.boardType,
-          fieldType: this.description,
-          testcase: val
+          fieldType: 'powerConsumption',
+          testCase: val
         }
         //  TODO 这里要换成版本的下拉列表接口
-        return getParams(parameter).then(res => {
-          this.getParamsRes = res
+        return getVersion(parameter).then(res => {
+          this.setVersion = res.type_list
           console.log(res)
         })
       },
+      // 触发第二个select
       changeGetParams (val) {
         this.boardType = val
         console.log(val)
@@ -123,8 +182,8 @@
         // const resttest = { 'case_list': ['KPI_Airplane_MODE', 'KPI_Airplane_MODE234'] }
         // this.getParamsRes = resttest.case_list
         const parameter = {
-          categoryType: '功耗',
-          fieldType: routerParams,
+          categoryType: routerParams,
+          fieldType: 'powerConsumption',
           productType: this.productType,
           boardType: val
         }
@@ -136,9 +195,18 @@
       handleSubmit (e) {
         e.preventDefault()
       },
-      getUser () {
-        // alert(this.description)
-        return getUser().then(res => {
+      // 触发第四个select
+      getVersionM (val) {
+        const parameter = {
+          categoryType: this.description,
+          fieldType: 'powerConsumption',
+          productType: this.productType,
+          boardType: this.boardType,
+          testCase: this.testCase,
+          versionType: val
+        }
+        console.log(this.testCase)
+        return getUser(parameter).then(res => {
           // console.log(typeof (res)) object
           // console.log(res.chart_data.legendData)
           const chartLine = echarts.init(document.getElementById('myChart'))
@@ -180,7 +248,7 @@
               grid: {
                 left: '15%',
                 right: '15%',
-                bottom: '30%'
+                bottom: '40%'
                 // containLabel: true
               },
               xAxis: {
@@ -196,9 +264,7 @@
                   }
                 }
               },
-              yAxis: {
-                type: 'value'
-              },
+              yAxis: {},
               series: []
             }
             const seriesData = []
@@ -341,5 +407,5 @@
     }
   }
 </style>
-
-```
+http://ics.chinasoftinc.com/SignOnServlet?Error=LIN107%09%E5%AF%B9%E4%B8%8D%E8%B5%B7%EF%BC%8C%E6%82%A8%E7%9A%84%E5%B8%90%E5%8F%B7210960%E5%B7%B2%E8%A2%AB%E9%94%81%E5%AE%9A%EF%BC%8C%E6%97%A0%E6%9D%83%E7%99%BB%E5%BD%95%E6%9C%AC%E7%AB%99%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%89%E7%96%91%E9%97%AE%EF%BC%8C%E8%AF%B7%E8%81%94%E7%B3%BB%E7%AE%A1%E7%90%86%E5%91%98
+advanceForm.vue
