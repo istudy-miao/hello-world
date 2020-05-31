@@ -411,3 +411,22 @@ http://ics.chinasoftinc.com/SignOnServlet?Error=LIN107%09%E5%AF%B9%E4%B8%8D%E8%B
 advanceForm.vue
 跨域解决：https://www.cnblogs.com/Tohold/p/9173137.html（原因分析，为什么会出现请求后台两次的情况）
 问题解决：https://www.jianshu.com/p/78b3d7981543
+后台调用接口总结：接口地址http://10.190.200.110:8001/dataresourceapp/task_data/test_result_data/
+1.	在src/api/manage.js中新增一个方法如下：
+ antd总结：
+在该文件中引入： 
+在引用该方法的文件中引入如下：
+ 
+2.	在src/config/index.js中：（以下路径是后台地址）
+ 
+3.	页面调用src/form/advancedForm/AdvancedForm
+ 
+如上，res即为后台返回的值。
+{"chart_data": {"legendData": ["\u6574\u673a", "SOC+DDR", "CPU_L", "CPU_BM", "GPU", "CPU MEM", "PERI CORE", "DMC/DDRPHY", "Global MEM ", "PERI FIXED CORE", "AO", "DDRPHY/IO", "DDR Device", "MODEM", "HV 1.2V", "HV 1.8V", "MODEM MEM", "NPU", "GPU MEM", "SYS_MEM", "SERDES", "PCIE_VDD075", "UFS_AVDD_0V75", "CSI_0V75"], "seriesData": {"\u6574\u673a": [9.02, 0.445], "SOC+DDR": [5.0, 0.45], "CPU_L": [0.12, 0.13], "CPU_BM": [0.14, 0.12], "GPU": [0.0, 0.1], "CPU MEM": [0.0, 0.2], "PERI CORE": [0.03, 0.12], "DMC/DDRPHY": [1.0, 0.11], "Global MEM ": [0.0, 0.41], "PERI FIXED CORE": [0.0, 0.12], "AO": [0.36, 0.45], "DDRPHY/IO": [0.06, 0.45], "DDR Device": [3.66, 4.4], "MODEM": [0.12, 0.4], "HV 1.2V": [0.13, 0.5], "HV 1.8V": [0.14, 0.54], "MODEM MEM": [0.12, 0.1], "NPU": [0.14, 0.2], "GPU MEM": [0.445, 0.3], "SYS_MEM": [0.14, 0.17], "SERDES": [0.125, 0.13], "PCIE_VDD075": [0.123, 0.31], "UFS_AVDD_0V75": [0.213, 0.23], "CSI_0V75": [0.12, 0.33]}, "legendSelected": {"\u6574\u673a": true, "SOC+DDR": true, "CPU_L": true, "CPU_BM": true, "GPU": true, "CPU MEM": true, "PERI CORE": true, "DMC/DDRPHY": true, "Global MEM ": true, "PERI FIXED CORE": true, "AO": true, "DDRPHY/IO": true, "DDR Device": true, "MODEM": true, "HV 1.2V": true, "HV 1.8V": true, "MODEM MEM": true, "NPU": true, "GPU MEM": true, "SYS_MEM": true, "SERDES": true, "PCIE_VDD075": true, "UFS_AVDD_0V75": true, "CSI_0V75": true}, "xAxisData": ["C10B220_2020_0513_143135", "C10B220_2020_0514_143135"]}}
+manage.js
+ 
+<!-- <a-button type="primary" style="margin-top:40px;border-radius:6px;" @click="getDetail">详情展示</a-button> -->
+
+
+
+ 
