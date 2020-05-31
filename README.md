@@ -409,3 +409,5 @@
 </style>
 http://ics.chinasoftinc.com/SignOnServlet?Error=LIN107%09%E5%AF%B9%E4%B8%8D%E8%B5%B7%EF%BC%8C%E6%82%A8%E7%9A%84%E5%B8%90%E5%8F%B7210960%E5%B7%B2%E8%A2%AB%E9%94%81%E5%AE%9A%EF%BC%8C%E6%97%A0%E6%9D%83%E7%99%BB%E5%BD%95%E6%9C%AC%E7%AB%99%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%89%E7%96%91%E9%97%AE%EF%BC%8C%E8%AF%B7%E8%81%94%E7%B3%BB%E7%AE%A1%E7%90%86%E5%91%98
 advanceForm.vue
+跨域解决：https://www.cnblogs.com/Tohold/p/9173137.html（原因分析，为什么会出现请求后台两次的情况）
+问题解决：https://www.jianshu.com/p/78b3d7981543
